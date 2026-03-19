@@ -6,9 +6,14 @@
  */
 
 import { useEffect, useRef, useCallback } from 'react';
-import { Hands } from '@mediapipe/hands';
-import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
-import { HAND_CONNECTIONS } from '@mediapipe/hands';
+import * as mediapipeHands from '@mediapipe/hands';
+import * as mediapipeDrawing from '@mediapipe/drawing_utils';
+
+// Safely extract MediaPipe constructors/functions for Vite production build
+const Hands = mediapipeHands.Hands || (mediapipeHands.default && mediapipeHands.default.Hands) || window.Hands;
+const HAND_CONNECTIONS = mediapipeHands.HAND_CONNECTIONS || (mediapipeHands.default && mediapipeHands.default.HAND_CONNECTIONS) || window.HAND_CONNECTIONS;
+const drawConnectors = mediapipeDrawing.drawConnectors || (mediapipeDrawing.default && mediapipeDrawing.default.drawConnectors) || window.drawConnectors;
+const drawLandmarks = mediapipeDrawing.drawLandmarks || (mediapipeDrawing.default && mediapipeDrawing.default.drawLandmarks) || window.drawLandmarks;
 import {
   detectFingers,
   getActiveNotes,
